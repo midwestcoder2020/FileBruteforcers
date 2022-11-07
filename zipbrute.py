@@ -2,13 +2,14 @@ import zipfile
 import os
 
 def getZipFileName():
-    return input("Enter path to zipfile: ")
+    return input("Enter path to zipfile: ").strip()
 
 def getPasswordList():
     print("Enter path to a password list  or leave black to use default rockyou.txt")
-    return input("Enter path to password list: ")
+    return input("Enter path to password list: ").strip()
 
 def assembleFiles():
+    print("Getting passwords...")
     data=[]
     if not os.path.exists("./rockyou.txt"):
         for x in os.listdir("./"):
@@ -19,6 +20,8 @@ def assembleFiles():
         data.extend(open('rockyou.txt', "r", encoding="utf-8", errors='ignore').readlines())
 
     return data
+
+
 def main():
     zipName=getZipFileName()
     #init zip file object
@@ -29,9 +32,9 @@ def main():
 
     #load passwords
     #opens handle to password file to minimize memory overhead
-    with open(passwFile) as passwords:
-        for p in passwords:
-            print(p.strip()) # REMOVE FOR INCREASED PERFORMANCE
+    if type(passwFile).__name__ == "list":
+        for p in passwFile:
+            print(p.strip())  # REMOVE FOR INCREASED PERFORMANCE
             try:
                 zF.extractall(pwd=p.strip().encode())
             except:
@@ -39,8 +42,18 @@ def main():
             else:
                 print("Password found:", p)
                 exit(0)
-
-    passwords.close()
+    else:
+        with open(passwFile) as passwords:
+            for p in passwords:
+                print(p.strip()) # REMOVE FOR INCREASED PERFORMANCE
+                try:
+                    zF.extractall(pwd=p.strip().encode())
+                except:
+                    continue
+                else:
+                    print("Password found:", p)
+                    exit(0)
+        passwords.close()
 
 if __name__ == '__main__':
     main()
