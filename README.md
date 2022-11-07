@@ -22,5 +22,5 @@ continue with script
 ### IMPROVEMENTS
 
 * GUI
-* Non Pass Bruteforce
+* Improved Bruteforce
 * AI password generator dictionary attack
