@@ -19,6 +19,15 @@ enter path to password list at cmdline or leave black for default rockyou.txt
 
 continue with script
 
+
+## AESCrypt FILE Brute force
+
+enter path to AesCrypt file at cmdline prompt
+
+enter path to password list at cmdline or leave black for default rockyou.txt
+
+continue with script
+
 ### IMPROVEMENTS
 
 * GUI
